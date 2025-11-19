@@ -8,11 +8,25 @@ const app = express();
 app.use(express.json());
 
 // Enable CORS for frontend
-app.use(cors({
-  origin: "http://72.60.102.213:8080", // frontend URL
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+const allowedOrigins = [
+  "http://72.60.102.213:8080",
+  "http://localhost:8080"
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 
 // Default root route
 app.get("/", (req, res) => {
