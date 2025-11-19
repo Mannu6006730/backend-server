@@ -17,14 +17,23 @@ export const categories = async (req, res) => {
 
     res.json(response.data);
   } catch (e) {
-    console.error("dvds",e)
+    console.error("dvds", e)
     res.status(500).json({ error: e.message });
   }
 };
 
 export const productList = async (req, res) => {
   try {
-    const url = `${CONFIG.host}/rest/v3/catalog/categories/${req.params.categoryId}/products`;
+    let url;
+
+    // Agar categoryId diya hai, toh category-wise fetch
+    if (req.params.categoryId) {
+      url = `${CONFIG.host}/rest/v3/catalog/categories/${req.params.categoryId}/products`;
+    } else {
+      // All products fetch karne ke liye
+      url = `${CONFIG.host}/rest/v3/catalog/products`;
+    }
+
     const signature = generateSignature("GET", url, null, CONFIG.clientSecret);
 
     const response = await axiosClient.get(url, {
@@ -43,7 +52,7 @@ export const productList = async (req, res) => {
 
 export const singleProduct = async (req, res) => {
   try {
-    console.log("token ",req.headers)
+    console.log("token ", req.headers)
     const url = `${CONFIG.host}/rest/v3/catalog/products/${req.params.sku}`;
     const signature = generateSignature("GET", url, null, CONFIG.clientSecret);
 
