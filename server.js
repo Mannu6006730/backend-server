@@ -9,8 +9,8 @@ app.use(express.json());
 
 // Enable CORS for frontend
 const allowedOrigins = [
-  "http://72.60.102.213:8080",
-  "http://localhost:8080"
+  "http://72.60.102.213:3000",
+  "http://localhost:3000"
 ];
 
 app.use(
