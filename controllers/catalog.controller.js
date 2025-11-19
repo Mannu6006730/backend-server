@@ -25,7 +25,7 @@ export const categories = async (req, res) => {
 export const productList = async (req, res) => {
   try {
     let url;
-
+    console.log("Producti list calling.....")
     // Agar categoryId diya hai, toh category-wise fetch
     if (req.params.categoryId) {
       url = `${CONFIG.host}/rest/v3/catalog/categories/${req.params.categoryId}/products`;
@@ -33,6 +33,7 @@ export const productList = async (req, res) => {
       // All products fetch karne ke liye
       url = `${CONFIG.host}/rest/v3/catalog/products`;
     }
+    console.log("Generating URl ....")
 
     const signature = generateSignature("GET", url, null, CONFIG.clientSecret);
 
@@ -43,9 +44,10 @@ export const productList = async (req, res) => {
         signature
       }
     });
-
+    console.log("Response ", response)
     res.json(response.data);
   } catch (e) {
+    console.log("Error: ", e.message)
     res.status(500).json({ error: e.message });
   }
 };
