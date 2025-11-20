@@ -9,7 +9,7 @@ export const createOrder = async (req, res) => {
 
     const response = await axiosClient.post(url, req.body, {
       headers: {
-        Authorization: `Bearer ${req.headers.token}`,
+        token: req.headers.token,  
         dateAtClient: new Date().toISOString(),
         signature
       }
@@ -28,7 +28,7 @@ export const orderStatus = async (req, res) => {
 
     const response = await axiosClient.get(url, {
       headers: {
-        Authorization: `Bearer ${req.headers.token}`,
+        token: req.headers.token,  
         dateAtClient: new Date().toISOString(),
         signature
       }

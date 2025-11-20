@@ -38,7 +38,7 @@ router.post("/token", async (req, res) => {
     const payload = {
       clientId: "3197041d1b8f9c841e6827125d413bcb",
       clientSecret: "e105bcb60112f9102cad36e5856464b4", // agar client secret required ho
-      authCode,
+      authorizationCode:authCode,
     };
 
     const response = await axios.post(
