@@ -83,6 +83,6 @@ router.post("/token", async (req, res) => {
     console.log(error.response?.data || error);
     res.status(500).json({ error: "Failed to generate token" });
   }
-});
+}); 
 
 export default router;
